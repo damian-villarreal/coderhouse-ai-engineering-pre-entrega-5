@@ -1,0 +1,134 @@
+{
+  "thread_id": "sesion-cliente-102",
+  "recursion_limit": 10,
+  "checkpointer": "SqliteSaver",
+  "turnos": [
+    {
+      "nombre": "multi_paso",
+      "usuario": "¿Cuántos pedidos tuvo el cliente 102, cuál fue el total y qué productos incluye el último pedido?",
+      "herramientas_invocadas": [
+        "buscar_pedidos",
+        "detalle_pedido"
+      ],
+      "pasos": [
+        {
+          "type": "human",
+          "content": "¿Cuántos pedidos tuvo el cliente 102, cuál fue el total y qué productos incluye el último pedido?"
+        },
+        {
+          "type": "ai",
+          "content": "",
+          "tool_calls": [
+            {
+              "name": "buscar_pedidos",
+              "args": {
+                "cliente_id": 102
+              },
+              "id": "call_188057"
+            }
+          ]
+        },
+        {
+          "type": "tool",
+          "content": "{\"status\": \"incompleto\", \"cliente_id\": 102, \"pedidos\": 3, \"total\": 14500, \"ordenados_del_mas_viejo_al_mas_nuevo\": [{\"pedido_id\": 5001, \"fecha\": \"2026-01-12\", \"total\": 3200}, {\"pedido_id\": 5008, \"fecha\": \"2026-03-02\", \"total\": 4800}, {\"pedido_id\": 5012, \"fecha\": \"2026-06-18\", \"total\": 6500}], \"ultimo_pedido_id\": 5012, \"mensaje\": \"Resumen agregado listo. Esta consulta no incluye productos. Si necesitás saber qué se compró en un pedido, llamá a detalle_pedido(pedido_id) con el id de esta lista antes de responder. No inventes los productos.\"}",
+          "name": "buscar_pedidos"
+        },
+        {
+          "type": "ai",
+          "content": "",
+          "tool_calls": [
+            {
+              "name": "detalle_pedido",
+              "args": {
+                "pedido_id": 5012
+              },
+              "id": "call_297273"
+            }
+          ]
+        },
+        {
+          "type": "tool",
+          "content": "{\"status\": \"ok\", \"pedido_id\": 5012, \"cliente_id\": 102, \"fecha\": \"2026-06-18\", \"total\": 6500, \"productos\": [\"Soporte para notebook\", \"Mouse inalámbrico\"]}",
+          "name": "detalle_pedido"
+        },
+        {
+          "type": "ai",
+          "content": "El cliente 102 tuvo un total de **3 pedidos**, con una facturación acumulada de **$14.500**.\n\nEl último pedido (ID **5012**, realizado el 18/06/2026 por un total de $6.500) incluye los siguientes productos:\n- Soporte para notebook\n- Mouse inalámbrico"
+        }
+      ],
+      "respuesta": "El cliente 102 tuvo un total de **3 pedidos**, con una facturación acumulada de **$14.500**.\n\nEl último pedido (ID **5012**, realizado el 18/06/2026 por un total de $6.500) incluye los siguientes productos:\n- Soporte para notebook\n- Mouse inalámbrico"
+    },
+    {
+      "nombre": "memoria",
+      "usuario": "¿Y el penúltimo, qué productos tenía?",
+      "herramientas_invocadas": [
+        "detalle_pedido"
+      ],
+      "pasos": [
+        {
+          "type": "human",
+          "content": "¿Y el penúltimo, qué productos tenía?"
+        },
+        {
+          "type": "ai",
+          "content": "",
+          "tool_calls": [
+            {
+              "name": "detalle_pedido",
+              "args": {
+                "pedido_id": 5008
+              },
+              "id": "call_297088"
+            }
+          ]
+        },
+        {
+          "type": "tool",
+          "content": "{\"status\": \"ok\", \"pedido_id\": 5008, \"cliente_id\": 102, \"fecha\": \"2026-03-02\", \"total\": 4800, \"productos\": [\"Monitor 27 pulgadas\"]}",
+          "name": "detalle_pedido"
+        },
+        {
+          "type": "ai",
+          "content": "El penúltimo pedido (ID **5008**, realizado el 02/03/2026 por un total de $4.800) incluye:\n- Monitor 27 pulgadas"
+        }
+      ],
+      "respuesta": "El penúltimo pedido (ID **5008**, realizado el 02/03/2026 por un total de $4.800) incluye:\n- Monitor 27 pulgadas"
+    },
+    {
+      "nombre": "error",
+      "usuario": "¿Cuántos pedidos tuvo el cliente 999 y cuál fue el total?",
+      "herramientas_invocadas": [
+        "buscar_pedidos"
+      ],
+      "pasos": [
+        {
+          "type": "human",
+          "content": "¿Cuántos pedidos tuvo el cliente 999 y cuál fue el total?"
+        },
+        {
+          "type": "ai",
+          "content": "",
+          "tool_calls": [
+            {
+              "name": "buscar_pedidos",
+              "args": {
+                "cliente_id": 999
+              },
+              "id": "call_337400"
+            }
+          ]
+        },
+        {
+          "type": "tool",
+          "content": "{\"status\": \"error\", \"codigo\": \"cliente_no_encontrado\", \"cliente_id\": 999, \"mensaje\": \"No existe el cliente 999. No reintentes este id. Pedile al usuario un cliente_id válido. Clientes disponibles: [102, 215, 340].\"}",
+          "name": "buscar_pedidos"
+        },
+        {
+          "type": "ai",
+          "content": "El cliente 999 no existe en la base de datos. Por favor, indicame un `cliente_id` válido para poder consultar sus pedidos."
+        }
+      ],
+      "respuesta": "El cliente 999 no existe en la base de datos. Por favor, indicame un `cliente_id` válido para poder consultar sus pedidos."
+    }
+  ]
+}

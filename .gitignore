@@ -1,0 +1,27 @@
+# Entorno virtual y secretos
+.venv/
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Checkpoints locales del agente
+data/
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
